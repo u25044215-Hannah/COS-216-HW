@@ -1,5 +1,6 @@
 <?php
-// config.php
+//Hannah Diedrick
+//u25044215
 
 function loadEnv($path)
 {
