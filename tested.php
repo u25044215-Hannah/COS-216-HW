@@ -1,4 +1,6 @@
 <?php
+//Hannah Diedrick
+//u25044215
 require_once "config.php";
 
 header("Content-Type: application/json");
