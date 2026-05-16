@@ -1,0 +1,15 @@
+{
+  "name": "task2-websocket-server",
+  "version": "1.0.0",
+  "description": "COS216 Task 2 Multi-User NodeJS WebSocket Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Shelby Bodenstein u25038967",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ws": "^8.18.0"
+  }
+}
