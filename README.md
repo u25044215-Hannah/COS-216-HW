@@ -14,3 +14,6 @@ async function callApi(payload) {
 
   return await response.json();
 }
+
+API URL:
+https://wheatley.cs.up.ac.za/u25044215/COS216PussInReboots/api.php
