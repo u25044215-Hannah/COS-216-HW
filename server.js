@@ -220,6 +220,32 @@ function countBoardedPassengers(flight) {
     };
 }
 
+async function handleGetAirports(ws) {
+    if (!ws.user) {
+        safeSend(ws, {
+            type: "ERROR",
+            message: "You must LOGIN before requesting airports"
+        });
+        return;
+    }
+
+    try {
+        const airports = await callApi({
+            type: "GetAirports"
+        });
+
+        safeSend(ws, {
+            type: "AIRPORT_LIST",
+            message: "Airports returned successfully",
+            data: airports
+        });
+    } catch (err) {
+        safeSend(ws, {
+            type: "ERROR",
+            message: "Could not send airport list: " + err.message
+        });
+    }
+}
 // FLIGHT ANIMATION
 
 async function startFlightAnimation(flightId, atcWs) {
@@ -653,6 +679,11 @@ async function handleMessage(ws, rawMessage) {
 
         case "GetAllFlights":
             await handleGetFlights(ws);
+            break;
+
+        case "GET_AIRPORTS":
+        case "GetAirports":
+            await handleGetAirports(ws);
             break;
 
         case "DISPATCH":
