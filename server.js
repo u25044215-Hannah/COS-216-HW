@@ -194,11 +194,7 @@ function getFlightDurationSeconds(flight) {
         return 60;
     }
 
-    /*
-        The spec says interpolate over N seconds where N is the flight
-        duration in hours. So if flight_duration_hours = 2, animation is 2 seconds.
-        This is strange in real life, but matches the assignment wording.
-    */
+  
     return Math.max(1, Math.round(hours));
 }
 
@@ -311,11 +307,7 @@ async function startFlightAnimation(flightId, atcWs) {
                     estimated_seconds_remaining: state.estimatedSecondsRemaining
                 });
 
-                /*
-                    I update the database on every tick here because the task
-                    wants the latest aircraft position to be continuously available.
-                    If your marker wants fewer DB writes, change this to every 5 ticks.
-                */
+              
                 await callApi({
                     type: "UpdateFlightPosition",
                     server_key: SERVER_API_KEY,
@@ -557,7 +549,33 @@ async function handleBoard(ws, msg) {
         });
     }
 }
+async function handleGetFlights(ws) {
+    if (!ws.user) {
+        safeSend(ws, {
+            type: "ERROR",
+            message: "You must LOGIN before requesting flights"
+        });
+        return;
+    }
 
+    try {
+        const flights = await callApi({
+            type: "GetAllFlights",
+            ...getAuthPayload(ws)
+        });
+
+        safeSend(ws, {
+            type: "FLIGHT_LIST",
+            message: "Flights returned successfully",
+            data: flights
+        });
+    } catch (err) {
+        safeSend(ws, {
+            type: "ERROR",
+            message: "Could not send flight list: " + err.message
+        });
+    }
+}
 async function handleTrack(ws, msg) {
     if (!ws.user) {
         safeSend(ws, {
@@ -576,11 +594,7 @@ async function handleTrack(ws, msg) {
     }
 
     try {
-        /*
-            Your PHP API already blocks passengers from retrieving flights
-            they are not booked on. That means this call enforces the Passenger
-            restriction required by the spec.
-        */
+       
         const flight = await callApi({
             type: "GetFlight",
             ...getAuthPayload(ws),
@@ -631,6 +645,14 @@ async function handleMessage(ws, rawMessage) {
     switch (msg.type) {
         case "LOGIN":
             await handleLogin(ws, msg);
+            break;
+
+        case "GET_FLIGHTS":
+            await handleGetFlights(ws);
+            break;
+
+        case "GetAllFlights":
+            await handleGetFlights(ws);
             break;
 
         case "DISPATCH":
