@@ -1,0 +1,135 @@
+<h1>Flight Tracker</h1>
+
+<div>
+  <input type="text" [(ngModel)]="username" placeholder="Username" />
+
+  <input type="password" [(ngModel)]="password" placeholder="Password" />
+
+  <button [disabled]="socketStatus === 'Connected'" (click)="connectSocket()">
+    Connect WebSocket
+  </button>
+
+  <button [disabled]="socketStatus !== 'Connected'" (click)="login()">
+    Login
+  </button>
+</div>
+
+<p>Status: {{ socketStatus }}</p>
+
+<p>User Role: {{ role }}</p>
+
+<p>{{ message }}</p>
+
+<div *ngIf="boardingMessage">
+  <h3>{{ boardingMessage }}</h3>
+
+  <p>Time left: {{ boardingCountdown }} seconds</p>
+
+  <button *ngIf="boardingCountdown > 0" [disabled]="socketStatus !== 'Connected'" (click)="boardFlight()">
+
+    Confirm Boarding
+
+  </button>
+</div>
+
+<div id="map"></div>
+
+<div *ngIf="role === 'Passenger'">
+
+  <h2>Passenger View</h2>
+
+  <div *ngFor="let flight of flights">
+
+    <p>
+      {{ flight.flight_number }} -
+      {{ flight.status }}
+    </p>
+
+    <button [disabled]="socketStatus !== 'Connected'" (click)="selectFlight(flight)">
+
+      Select
+
+    </button>
+
+    <button [disabled]="socketStatus !== 'Connected'" (click)="trackFlight(flight)">
+
+      Track
+
+    </button>
+
+  </div>
+
+</div>
+
+<div *ngIf="role === 'ATC'">
+
+  <h2>ATC View</h2>
+
+  <div *ngFor="let flight of flights">
+
+    <p>
+      {{ flight.flight_number }} -
+      {{ flight.status }}
+    </p>
+
+    <button [disabled]="socketStatus !== 'Connected'" (click)="selectFlight(flight)">
+
+      Select
+
+    </button>
+
+    <button [disabled]="socketStatus !== 'Connected'" (click)="trackFlight(flight)">
+
+      Track
+
+    </button>
+
+    <button [disabled]="socketStatus !== 'Connected'" (click)="dispatchFlight(flight)">
+
+      Dispatch
+
+    </button>
+
+  </div>
+
+</div>
+
+<div *ngIf="selectedFlight">
+
+  <h2>Selected Flight</h2>
+
+  <p>Flight: {{ selectedFlight.flight_number }}</p>
+
+  <p>Status: {{ selectedFlight.status }}</p>
+
+  <p>
+    Origin:
+    {{ selectedFlight.origin_airport || selectedFlight.origin_name || selectedFlight.origin_iata ||
+    selectedFlight.origin_airport_id }}
+  </p>
+
+  <p>
+    Destination:
+    {{ selectedFlight.destination_airport || selectedFlight.destination_name || selectedFlight.destination_iata ||
+    selectedFlight.destination_airport_id }}
+  </p>
+
+  <p>Progress: {{ flightProgress }}%</p>
+
+</div>
+
+<div *ngIf="selectedFlight?.passengers">
+
+  <h3>Passengers</h3>
+
+  <div *ngFor="let passenger of selectedFlight.passengers">
+
+    <p>
+      {{ passenger.username }} -
+      Seat: {{ passenger.seat_number }} -
+      Boarded: {{ passenger.boarding_confirmed }}
+    </p>
+
+  </div>
+
+</div>
