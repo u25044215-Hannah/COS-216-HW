@@ -1,26 +1,33 @@
-const config = {
-  apiBase: 'https://wheatley.cs.up.ac.za/u25044215/COS216PussInReboots/api.php',
-  serverKey: 'ask-hannah-privately'
-};
+# COS216 Task 2 - Multi-User NodeJS WebSocket Server
 
-async function callApi(payload) {
-  const response = await fetch(config.apiBase, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
+## Project Information
 
-  return await response.json();
+**Project:** COS216 Homework Assignment - Task 2  
+**Task:** Multi-User NodeJS WebSocket Server  
+**Author:** Shelby Bodenstein  
+**Student Number:** u25038967  
+
+This project implements the Task 2 WebSocket server for the COS216 flight tracking system. The server runs locally using NodeJS and communicates with the PHP API from Task 1 hosted on Wheatley.
+
+The assignment requires the NodeJS server to run on localhost, not on Wheatley, and to accept multiple WebSocket clients at the same time. The server must also use the PHP API to get, dispatch, board, and update flights. :contentReference[oaicite:0]{index=0}
+
+---
+
+## Technologies Used
+
+This server uses:
+
+- NodeJS
+- WebSockets using the `ws` package
+- `dotenv` for environment variables
+- `readline` for server terminal commands
+- PHP API from Task 1
+- MySQL database through the PHP API
+
+Dependencies:
+
+```json
+{
+  "dotenv": "^16.4.5",
+  "ws": "^8.18.0"
 }
-
-API URL:
-https://wheatley.cs.up.ac.za/u25044215/COS216PussInReboots/api.php
-
-
-DB_HOST=wheatley.cs.up.ac.za
-DB_USER=u25044215
-DB_PASS=TUCTONLADCQBIP53ZCHGAEZBUIFPIHQI
-DB_NAME=u25044215_PussInReboots
-SERVER_API_KEY=PussInReboots
