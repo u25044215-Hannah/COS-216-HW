@@ -1,0 +1,43 @@
+Flight Tracker System
+Overview
+
+A real-time Flight Tracker system for COS 216 is this project. The system is made up of a WebSocket server using NodeJS and a front-end application using the Angular 17 framework. Shows live flight movements interactively on a map with Leaflet.
+
+The application has two roles for users: Passenger and Air Traffic Control (ATC). The WebSocket communication enables users to log in and communicate with the system in real time.
+
+Features
+Passenger Features
+
+The passengers can see the flights they have booked, get real-time flight tracking information, be notified about their boarding, be sure of their boarding in the boarding window, and get the progress of their flights.
+
+ATC Features
+
+ATC staff members have access to all flights in the system, are able to dispatch scheduled flights, monitor active flights and check passenger boarding confirmations.
+
+Flight Tracking
+
+The system provides real-time information on aircraft movements plotted on an interactive map. A WebSocket message is received on the backend, and reflected on the frontend as flight progress updates.
+
+Map Features
+
+The map opens with a world view, and shows aircraft and airport markers. During flight tracking, aircraft movement updates are dynamic.
+
+Technologies Used
+
+It was built using the following technologies: Angular 17, TypeScript, WebSockets, NodeJS, Leaflet.
+
+Running the Project
+
+The backend server needs to be started first using NodeJS. Once the server is up and running, the Angular front end application is then able to be started. Both will be running, and the client will be able to connect to the WebSocket server locally via localhost.
+
+WebSocket Communication
+
+All real-time communications between frontend and backend are done using WebSockets. Messages are utilized for logging in, flight tracking, flight dispatching, boarding confirmations, airport loading and live aircraft position updates.
+
+Flight Flow
+
+The system supports a full flight process and is real-time. Then an ATC user sends a scheduled flight, passengers are notified to board, they confirm boarding, the server initiates the aircraft movement, clients get live updates on the aircraft's position and eventually it changes to Landed.
+
+Final Notes
+
+The system features WebSockets and NodeJS for real-time communication, Web Mapping, Dynamic Angular components and role-based functionality.
