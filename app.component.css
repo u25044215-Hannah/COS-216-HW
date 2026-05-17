@@ -1,0 +1,74 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 25px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #eaf4ff, #f7fbff);
+  color: #1f2937;
+}
+
+h1 {
+  text-align: center;
+  color: #0f3b66;
+  font-size: 38px;
+  margin-bottom: 25px;
+}
+
+div {
+  margin-top: 12px;
+}
+
+input {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #b7c9dd;
+  border-radius: 8px;
+  outline: none;
+}
+
+button {
+  padding: 10px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0f6abf;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #094a86;
+}
+
+p {
+  font-size: 15px;
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+  margin-top: 25px;
+  border-radius: 16px;
+  border: 3px solid #9ec5ee;
+  box-shadow: 0 6px 20px rgba(15, 75, 130, 0.25);
+}
+
+h2 {
+  color: #0f3b66;
+  margin-top: 25px;
+  border-bottom: 2px solid #9ec5ee;
+  padding-bottom: 6px;
+}
+
+h3 {
+  color: #b45309;
+}
+
+div[ng-reflect-ng-if],
+div[ng-reflect-ng-for-of] {
+  background: white;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
